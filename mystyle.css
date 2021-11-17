@@ -1,0 +1,38 @@
+html {
+  font-family: 'Courier New', monospace;
+  background-color: #000000;
+  color: #FFFFFF;
+}
+
+table, th, td {
+  border: 1px solid #FFFFFF;
+}
+
+th {
+  font-style: bold;
+}
+
+button  {
+  font-family: 'Courier New', monospace;
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+input {
+  font-family: 'Courier New', monospace;
+}
+
+input[type="file"] {
+  font-family: 'Courier New', monospace;
+}
+input[type="button"] {
+  font-family: 'Courier New', monospace;
+}
+
+form {
+  font-family: 'Courier New', monospace;
+}
+
+.upload {
+  font-family: 'Courier New', monospace;
+}

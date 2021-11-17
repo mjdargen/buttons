@@ -1,59 +1,46 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Button Template</title>
+  <title>Button Template</title>
+
+  <link rel="stylesheet" href="mystyle.css">
+  <script src="myscripts.js"></script>
+
+  <!-- https://stackoverflow.com/questions/18191893/generate-pdf-from-html-in-div-using-javascript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
+
 </head>
-<body>
 
-  <form action="" id="my_form">
+<body onload="addRow()">
 
-  <table>
-   <tr>
-     <th>Picture</th>
-     <th>Preview</th>
-     <th>Color</th>
-     <th>Quantity</th>
-   </tr>
-   <tr>
-     <td> <label for="file1">Select a file:</label>
-       <input type="file" id="img1" name="img1"></td>
-     <td>preview here</td>
-     <td><input type="text" id="color1" name="color1"></td>
-     <td><input type="text" id="qty1" name="qty1"></td>
-   </tr>
-   <tr>
-     <td> <label for="file2">Select a file:</label>
-       <input type="file" id="img2" name="img2"></td>
-     <td>preview here</td>
-     <td><input type="text" id="color2" name="color2"></td>
-     <td><input type="text" id="qty2" name="qty2"></td>
-   </tr>
-   <tr>
-     <td> <label for="file3">Select a file:</label>
-       <input type="file" id="img3" name="img3"></td>
-     <td>preview here</td>
-     <td><input type="text" id="color3" name="color3"></td>
-     <td><input type="text" id="qty3" name="qty3"></td>
-   </tr>
- </table>
+  <!-- https://www.webtrickshome.com/forum/how-to-display-uploaded-image-in-html-using-javascript -->
+  <table id="pic_table">
+      <tr id="row0">
+        <th>Picture</th>
+        <th>Preview</th>
+        <th>Color</th>
+        <th>Quantity</th>
+      </tr>
+      <!-- <tr>
+        <form action="" id="pic_form1">
+        <td> <label for="file1">Upload image:</label>
+          <input type="file" accept="image/*" id="img1" onchange="loadPreview(event, this.id)">
+        <td><img id="preview1" width="200"/></td>
+        <td><div id="picker"></div></td>
+        <td><input type="text" id="qty1" name="qty1"></td>
+        </form>
+      </tr> -->
+    </table>
 
- <!-- add plus and minus buttons to add or remove rows in table -->
-
- <input type="submit" value="Submit">
- </form>
-
-
-<!-- https://www.webtrickshome.com/forum/how-to-display-uploaded-image-in-html-using-javascript -->
- <p><input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;"></p>
-<p><label for="file" style="cursor: pointer;">Upload Image</label></p>
-<p><img id="output" width="200" /></p>
-
-<script>
-var loadFile = function(event) {
-	var image = document.getElementById('output');
-	image.src = URL.createObjectURL(event.target.files[0]);
-};
-</script>
+    <br>
+    <button onclick="addRow()">Add row</button>
+    <button onclick="deleteRow()">Delete row</button>
+    <br>
+    <br>
+    <button onclick="generate()">Generate PDF</button>
 
 </body>
+
 </html>

@@ -1,0 +1,45 @@
+@page {
+    width: 7.5in;
+    height: 10in;
+    margin: 0in;
+    padding: 0.5in;
+}
+
+.item {
+  height: 1.6in;
+  text-align: center;
+  margin: 0.05in;
+}
+
+.dot {
+  height: 1.6in;
+  width: 1.6in;
+  background-color: #fff;
+  display: inline-block;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #000;
+}
+
+.graphic {
+  width: 1.156in;
+  height: 1.156in;
+  margin: auto;
+  display: block;
+  border-radius: 50%;
+}
+
+.center {
+  height: 1.6in;
+  width: 1.6in;
+  position: relative;
+}
+
+.center img {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
