@@ -1,44 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<style>
-table, td {
-  border: 1px solid black;
-}
+<title>CSS @page rule</title>
+<style type="text/css">
+
+    /* default for all pages */
+    @page {
+        margin: 2in;
+    }
+
+    /* margin on left page */
+    @page :left {
+        margin: 1in;
+    }
+
+    /* margin on right page */
+    @page :right {
+        margin: 3in;
+    }
+
+    /* top margin on first page */
+    @page :first {
+        margin-top: 5in;
+    }
+    h1{
+        color:green;
+    }
 </style>
 </head>
 <body>
-
-<p>Click the button to add a new row at the first position of the table and then add cells and content.</p>
-
-<table id="myTable">
-  <tr>
-    <td>Row1 cell1</td>
-    <td>Row1 cell2</td>
-  </tr>
-  <tr>
-    <td>Row2 cell1</td>
-    <td>Row2 cell2</td>
-  </tr>
-  <tr>
-    <td>Row3 cell1</td>
-    <td>Row3 cell2</td>
-  </tr>
-</table>
-<br>
-
-<button type="button" onclick="myFunction()">Try it</button>
-
-<script>
-function myFunction() {
-  var table = document.getElementById("myTable");
-  var row = table.insertRow(0);
-  var cell1 = row.insertCell(0);
-  var cell2 = row.insertCell(1);
-  cell1.innerHTML = "NEW CELL1";
-  cell2.innerHTML = "NEW CELL2";
-}
-</script>
+    <center>
+    <h1>GeeksforGeeks</h1>
+    <h2>CSS Page At-rule</h2>
+    <p>
+     If you open output in a new window and print the page
+     the margin around the text content appears differently
+     than it appears on the screen.
+    </p>
+    </center>
 
 </body>
-</html>
+</html> 

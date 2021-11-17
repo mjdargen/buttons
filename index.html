@@ -5,10 +5,13 @@
   <title>Button Template</title>
 
   <link rel="stylesheet" href="mystyle.css">
+  <link rel="stylesheet" href="button_style.css">
   <script src="myscripts.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
   <!-- https://stackoverflow.com/questions/18191893/generate-pdf-from-html-in-div-using-javascript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script> -->
+  <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
 
 </head>
@@ -40,6 +43,9 @@
     <br>
     <br>
     <button onclick="generate()">Generate PDF</button>
+    <div style="display:none;">
+    <div id="print_container" class="print_content"></div>
+  </div>
 
 </body>
 
