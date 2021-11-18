@@ -41,10 +41,36 @@ function addRow() {
   var div = document.createElement("div");
   div.id = "picker" + row_count;
   color_cell.appendChild(div);
+  // insert span, div, and input for values
+  var span = document.createElement("span");
+  span.value = "Selected Color:";
+  color_cell.appendChild(span);
+  var color_values = document.createElement("div");
+  color_values.id = "color_values" + row_count;
+  color_cell.appendChild(color_values);
+  var hex = document.createElement("input");
+  hex.id = "hexInput" + row_count;
+  color_cell.appendChild(hex);
   var temp = new iro.ColorPicker("#picker" + row_count, {
     width: 200,
   });
   pickers.push(temp)
+
+  // add display for values and hex input field
+  var values = document.getElementById("color_values" + row_count);
+  var hexInput = document.getElementById("hexInput" + row_count);
+  // https://iro.js.org/guide.html#color-picker-events
+  temp.on(["color:init", "color:change"], function(color){
+    values.innerHTML = [
+      "hex: " + color.hexString,
+      "rgb: " + color.rgbString,
+      "hsl: " + color.hslString,
+    ].join("<br>");
+    hexInput.value = color.hexString;
+  });
+  hexInput.addEventListener('change', function() {
+    temp.color.hexString = this.value;
+  });
 
   // insert quantity
   var qty_cell = row.insertCell(3);
@@ -116,6 +142,7 @@ function generate() {
     }
   }
 
+  // create window to print and open up dialog box
   var contents = document.getElementById("print_container").innerHTML;
   var print = window.open('', '', 'height=400,width=800');
   print.document.write('<html><head><title>Buttons</title>');
@@ -125,6 +152,8 @@ function generate() {
   print.document.write(contents);
   print.document.write('</body></html>');
   print.document.close();
+  print.focus();
+  setTimeout(function(){}, 2000); 
   print.print();
 
   // remove so it can be done again
