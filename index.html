@@ -4,46 +4,39 @@
 <head>
   <title>Button Template</title>
 
-  <link rel="stylesheet" href="mystyle.css">
-  <link rel="stylesheet" href="button_style.css">
-  <script src="myscripts.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="description" content="Easily place images into template to create pinback buttons.">
+  <meta name="author" content="Michael D'Argenio">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 
-  <!-- https://stackoverflow.com/questions/18191893/generate-pdf-from-html-in-div-using-javascript -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script> -->
-  <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+  <!-- <link rel="icon" href="media/londrangar_icon.png"> -->
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="button_style.css">
+  <script src="scripts.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
 
 </head>
 
 <body onload="addRow()">
 
-  <!-- https://www.webtrickshome.com/forum/how-to-display-uploaded-image-in-html-using-javascript -->
   <table id="pic_table">
-      <tr id="row0">
-        <th>Picture</th>
-        <th>Preview</th>
-        <th>Color</th>
-        <th>Quantity</th>
-      </tr>
-      <!-- <tr>
-        <form action="" id="pic_form1">
-        <td> <label for="file1">Upload image:</label>
-          <input type="file" accept="image/*" id="img1" onchange="loadPreview(event, this.id)">
-        <td><img id="preview1" width="200"/></td>
-        <td><div id="picker"></div></td>
-        <td><input type="text" id="qty1" name="qty1"></td>
-        </form>
-      </tr> -->
-    </table>
+    <tr id="row0">
+      <th>Picture</th>
+      <th>Preview</th>
+      <th>Color</th>
+      <th>Quantity</th>
+    </tr>
+  </table>
 
-    <br>
-    <button onclick="addRow()">Add row</button>
-    <button onclick="deleteRow()">Delete row</button>
-    <br>
-    <br>
-    <button onclick="generate()">Generate PDF</button>
-    <div style="display:none;">
+  <br>
+  <button onclick="addRow()">Add row</button>
+  <button onclick="deleteRow()">Delete row</button>
+  <br>
+  <br>
+  <button onclick="generate()">Generate PDF</button>
+  <div id-"invisible_container" style="display:none;">
     <div id="print_container" class="print_content"></div>
   </div>
 

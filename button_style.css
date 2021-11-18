@@ -1,8 +1,8 @@
-@page {
-  width: 7.5in;
-  height: 10in;
-  margin: 0in;
-  padding: 0.5in;
+/* forces background color printing */
+body {
+  -webkit-print-color-adjust: exact !important;
+  color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 .print_content {
@@ -15,12 +15,6 @@
   margin: 0in;
   padding: 0.5in;
 }
-
-/* .item {
-  height: 1.6in;
-  text-align: center;
-  margin: 0.05in;
-} */
 
 .dot {
   margin: 0.05in;
