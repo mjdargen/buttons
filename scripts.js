@@ -89,6 +89,7 @@ function addRow() {
 // remove row
 function deleteRow() {
   document.getElementById("pic_table").deleteRow(-1);
+  row_count--;
 }
 
 
@@ -153,7 +154,7 @@ function generate() {
   print.document.write('</body></html>');
   print.document.close();
   print.focus();
-  setTimeout(function(){}, 2000); 
+  setTimeout(function(){}, 2000);
   print.print();
 
   // remove so it can be done again
