@@ -147,14 +147,12 @@ function generate() {
   var contents = document.getElementById("print_container").innerHTML;
   var print = window.open('', '', 'height=400,width=800');
   print.document.write('<html><head><title>Buttons</title>');
-  print.document.write('<link rel="stylesheet" href="mystyle.css">')
   print.document.write('<link rel="stylesheet" href="button_style.css">')
   print.document.write('</head><body>');
   print.document.write(contents);
   print.document.write('</body></html>');
   print.document.close();
   print.focus();
-  setTimeout(function(){}, 2000);
   print.print();
 
   // remove so it can be done again

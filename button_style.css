@@ -5,6 +5,11 @@ body {
   print-color-adjust: exact;
 }
 
+@page {
+   margin: 0;
+   padding: 0;
+}
+
 .print_content {
   background-color: #fff;
 }
@@ -14,6 +19,7 @@ body {
   height: 10in;
   margin: 0in;
   padding: 0.5in;
+  padding-bottom: 0in !important;
 }
 
 .dot {
