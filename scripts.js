@@ -3,8 +3,30 @@ var pickers = [];
 
 // load image preview
 var loadPreview = function(event, id) {
-  var image = document.getElementById('preview' + id.match(/\d+/)[0]);
-  image.src = URL.createObjectURL(event.target.files[0]);
+  var row_num = id.match(/\d+/)[0]
+  var container = document.getElementById('imgcontainer' + row_num);
+
+  // clear out previous entries
+  while (container.hasChildNodes()) {
+    container.removeChild(container.lastChild);
+  }
+
+  var dot = document.createElement("span");
+  dot.setAttribute("class", "dot");
+  dot.style["background-color"] = pickers[row_num - 1].color.hexString;
+  dot.id = "imgdot" + row_count;
+  container.appendChild(dot);
+  // center
+  var center_div = document.createElement("div");
+  center_div.setAttribute("class", "center");
+  dot.appendChild(center_div);
+  // graphic
+  var graphic = document.createElement("img");
+  graphic.setAttribute("class", "graphic");
+  graphic.id = "preview" + row_count;
+  center_div.appendChild(graphic);
+  // image
+  graphic.src = URL.createObjectURL(event.target.files[0]);
 };
 
 // add row to table
@@ -31,10 +53,9 @@ function addRow() {
 
   // insert preview
   var prev_cell = row.insertCell(1);
-  var img = document.createElement("img");
-  img.id = "preview" + row_count;
-  img.width = 200;
-  prev_cell.appendChild(img)
+  var div = document.createElement("div");
+  div.id = "imgcontainer" + row_count;
+  prev_cell.appendChild(div);
 
   // insert color
   var color_cell = row.insertCell(2);
@@ -53,6 +74,7 @@ function addRow() {
   color_cell.appendChild(hex);
   var temp = new iro.ColorPicker("#picker" + row_count, {
     width: 200,
+    id: "#picker" + row_count,
   });
   pickers.push(temp)
 
@@ -60,13 +82,26 @@ function addRow() {
   var values = document.getElementById("color_values" + row_count);
   var hexInput = document.getElementById("hexInput" + row_count);
   // https://iro.js.org/guide.html#color-picker-events
-  temp.on(["color:init", "color:change"], function(color){
+  temp.on(["color:init"], function(){
     values.innerHTML = [
-      "hex: " + color.hexString,
-      "rgb: " + color.rgbString,
-      "hsl: " + color.hslString,
+      "hex: " + temp.color.hexString,
+      "rgb: " + temp.color.rgbString,
+      "hsl: " + temp.color.hslString,
     ].join("<br>");
-    hexInput.value = color.hexString;
+    hexInput.value = temp.color.hexString;
+  });
+  temp.on(["color:change"], function(){
+    values.innerHTML = [
+      "hex: " + temp.color.hexString,
+      "rgb: " + temp.color.rgbString,
+      "hsl: " + temp.color.hslString,
+    ].join("<br>");
+    hexInput.value = temp.color.hexString;
+    var row_num = temp.id.match(/\d+/)[0]
+    var dot = document.getElementById("imgdot" + row_num);
+    if (dot) {
+      dot.style["background-color"] = temp.color.hexString;
+    }
   });
   hexInput.addEventListener('change', function() {
     temp.color.hexString = this.value;
