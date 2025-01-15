@@ -20,17 +20,29 @@ html {
 }
 
 .print_page {
-  width: 8in;
-  height: 10.5in;
+  width: 8.5in;
+  height: 11in;
   margin: 0in;
-  padding: 0.25in;
+  padding: 0.125in;
   padding-bottom: 0in !important;
 }
 
+/* :root {
+  --button-margin: 0.15in;
+  --button-diameter: 1.6in;
+  --graphic-diameter: 1.24in;
+} */
+
+:root {
+  --button-margin: 0.125in;
+  --button-diameter: 2.5in;
+  --graphic-diameter: 1.99in;
+}
+
 .dot {
-  margin: 0.15in;
-  height: 1.6in;
-  width: 1.6in;
+  margin: var(--button-margin);
+  height: var(--button-diameter);
+  width: var(--button-diameter);
   background-color: #fff;
   display: inline-block;
   border-radius: 50%;
@@ -39,18 +51,19 @@ html {
 }
 
 .graphic {
-  width: 1.24in;
-  height: 1.24in;
+  width: var(--graphic-diameter);
+  height: var(--graphic-diameter);
   margin: auto;
   display: block;
   border-radius: 50%;
 }
 
 .center {
-  height: 1.6in;
-  width: 1.6in;
+  height: var(--button-diameter);
+  width: var(--button-diameter);
   position: relative;
 }
+
 
 .center img {
   margin: 0;
