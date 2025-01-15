@@ -34,7 +34,7 @@ html {
 } */
 
 :root {
-  --button-margin: 0.125in;
+  --button-margin: 0.0625in;
   --button-diameter: 2.5in;
   --graphic-diameter: 1.99in;
 }
