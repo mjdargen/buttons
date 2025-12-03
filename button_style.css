@@ -6,8 +6,8 @@ body {
 }
 
 @page {
-   margin: 0;
-   padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 html {
@@ -27,16 +27,19 @@ html {
   padding-bottom: 0in !important;
 }
 
+/* https://www.americanbuttonmachines.com/pages/free-button-making-templates */
+
 /* :root {
   --button-margin: 0.15in;
   --button-diameter: 1.6in;
   --graphic-diameter: 1.24in;
 } */
 
+/* 2 inch */
 :root {
   --button-margin: 0.0625in;
-  --button-diameter: 2.4375in;
-  --graphic-diameter: 1.99in;
+  --button-diameter: 2.375in;
+  --graphic-diameter: 1.875in;
 }
 
 .dot {
@@ -63,7 +66,6 @@ html {
   width: var(--button-diameter);
   position: relative;
 }
-
 
 .center img {
   margin: 0;

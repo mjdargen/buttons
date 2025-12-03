@@ -2,31 +2,45 @@ var row_count = 0;
 var pickers = [];
 
 // load image preview
-var loadPreview = function(event, id) {
-  var row_num = id.match(/\d+/)[0]
-  var container = document.getElementById('imgcontainer' + row_num);
+var loadPreview = function (event, id) {
+  var row_num = id.match(/\d+/)[0];
+  var container = document.getElementById("imgcontainer" + row_num);
 
-  // clear out previous entries
+  // clear previous preview
   while (container.hasChildNodes()) {
     container.removeChild(container.lastChild);
   }
 
+  // dot
   var dot = document.createElement("span");
   dot.setAttribute("class", "dot");
   dot.style["background-color"] = pickers[row_num - 1].color.hexString;
-  dot.id = "imgdot" + row_count;
+  dot.id = "imgdot" + row_num;
   container.appendChild(dot);
+
   // center
   var center_div = document.createElement("div");
   center_div.setAttribute("class", "center");
   dot.appendChild(center_div);
+
   // graphic
   var graphic = document.createElement("img");
   graphic.setAttribute("class", "graphic");
-  graphic.id = "preview" + row_count;
+  graphic.id = "preview" + row_num;
   center_div.appendChild(graphic);
-  // image
+
+  // set src
   graphic.src = URL.createObjectURL(event.target.files[0]);
+
+  // auto-set color picker
+  getDominantColorFromImage(graphic, (col) => {
+    // set picker color (iro.js accepts rgb object)
+    pickers[row_num - 1].color.rgb = col;
+
+    // update dot background immediately
+    dot.style["background-color"] = pickers[row_num - 1].color.hexString;
+  });
+  // --------------------------------------------
 };
 
 // add row to table
@@ -35,19 +49,20 @@ function addRow() {
   // insert row
   var row = table.insertRow(-1);
   row_count += 1;
-  row.id = 'row' + row_count;
-
+  row.id = "row" + row_count;
 
   // insert upload file
   var pic_cell = row.insertCell(0);
   var file = document.createElement("input");
   file.id = "file" + row_count;
-  file.type = "file"
-  file.class = "upload"
+  file.type = "file";
+  file.class = "upload";
   file.addEventListener(
-     'change',
-     function() { loadPreview(event, this.id); },
-     false
+    "change",
+    function () {
+      loadPreview(event, this.id);
+    },
+    false
   );
   pic_cell.appendChild(file);
 
@@ -76,13 +91,13 @@ function addRow() {
     width: 200,
     id: "#picker" + row_count,
   });
-  pickers.push(temp)
+  pickers.push(temp);
 
   // add display for values and hex input field
   var values = document.getElementById("color_values" + row_count);
   var hexInput = document.getElementById("hexInput" + row_count);
   // https://iro.js.org/guide.html#color-picker-events
-  temp.on(["color:init"], function(){
+  temp.on(["color:init"], function () {
     values.innerHTML = [
       "hex: " + temp.color.hexString,
       "rgb: " + temp.color.rgbString,
@@ -90,20 +105,20 @@ function addRow() {
     ].join("<br>");
     hexInput.value = temp.color.hexString;
   });
-  temp.on(["color:change"], function(){
+  temp.on(["color:change"], function () {
     values.innerHTML = [
       "hex: " + temp.color.hexString,
       "rgb: " + temp.color.rgbString,
       "hsl: " + temp.color.hslString,
     ].join("<br>");
     hexInput.value = temp.color.hexString;
-    var row_num = temp.id.match(/\d+/)[0]
+    var row_num = temp.id.match(/\d+/)[0];
     var dot = document.getElementById("imgdot" + row_num);
     if (dot) {
       dot.style["background-color"] = temp.color.hexString;
     }
   });
-  hexInput.addEventListener('change', function() {
+  hexInput.addEventListener("change", function () {
     temp.color.hexString = this.value;
   });
 
@@ -113,12 +128,12 @@ function addRow() {
   qty.id = "qty" + row_count;
   qty.type = "number";
   qty.step = "1";
-  qty.min = "0";  // limit to positive numbers
-  qty.onkeypress = function(event) {  // limit to keystrokes
-      return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57));
-   };
+  qty.min = "0"; // limit to positive numbers
+  qty.onkeypress = function (event) {
+    // limit to keystrokes
+    return (event.charCode != 8 && event.charCode == 0) || (event.charCode >= 48 && event.charCode <= 57);
+  };
   qty_cell.appendChild(qty);
-
 }
 
 // remove row
@@ -127,15 +142,13 @@ function deleteRow() {
   row_count--;
 }
 
-
 // generate pdf
 function generate() {
-
   // count the total number of images/pages
   var num_images = 0;
   for (var i = 1; i <= row_count; i++) {
     var qty = document.getElementById("qty" + i);
-    num_images += Number(qty.value)
+    num_images += Number(qty.value);
   }
   var num_pages = Math.ceil(num_images / 20);
 
@@ -151,9 +164,9 @@ function generate() {
   // for every row, get to work
   pin_count = 0;
   for (var i = 1; i <= row_count; i++) {
-    var qty = document.getElementById("qty" + i).value
+    var qty = document.getElementById("qty" + i).value;
     for (var j = 0; j < qty; j++) {
-      page_num = Math.ceil((pin_count+1) / 20);
+      page_num = Math.ceil((pin_count + 1) / 20);
       var div = document.getElementById("page" + page_num);
 
       // dot->center->graphic->img (center)
@@ -171,7 +184,7 @@ function generate() {
       graphic.setAttribute("class", "graphic");
       center_div.appendChild(graphic);
       // image
-      var image = document.getElementById('preview' + i);
+      var image = document.getElementById("preview" + i);
       graphic.src = image.src;
 
       pin_count++;
@@ -180,12 +193,12 @@ function generate() {
 
   // create window to print and open up dialog box
   var contents = document.getElementById("print_container").innerHTML;
-  var print = window.open('', '', 'height=400,width=800');
-  print.document.write('<html><head><title>Buttons</title>');
-  print.document.write('<link rel="stylesheet" href="button_style.css">')
-  print.document.write('</head><body>');
+  var print = window.open("", "", "height=400,width=800");
+  print.document.write("<html><head><title>Buttons</title>");
+  print.document.write('<link rel="stylesheet" href="button_style.css">');
+  print.document.write("</head><body>");
   print.document.write(contents);
-  print.document.write('</body></html>');
+  print.document.write("</body></html>");
   print.document.close();
   print.focus();
   print.print();
@@ -195,5 +208,42 @@ function generate() {
   while (parent.hasChildNodes()) {
     parent.removeChild(parent.lastChild);
   }
+}
 
+function getDominantColorFromImage(img, callback) {
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+
+  img.onload = () => {
+    const w = img.naturalWidth;
+    const h = img.naturalHeight;
+
+    canvas.width = w;
+    canvas.height = h;
+
+    ctx.drawImage(img, 0, 0, w, h);
+
+    const data = ctx.getImageData(0, 0, w, h).data;
+
+    const counts = {};
+    let max = 0;
+    let dominant = { r: 0, g: 0, b: 0 };
+
+    // sample every 4th pixel for speed
+    for (let i = 0; i < data.length; i += 16) {
+      const r = data[i];
+      const g = data[i + 1];
+      const b = data[i + 2];
+      const key = `${r},${g},${b}`;
+
+      counts[key] = (counts[key] || 0) + 1;
+
+      if (counts[key] > max) {
+        max = counts[key];
+        dominant = { r, g, b };
+      }
+    }
+
+    callback(dominant);
+  };
 }
